@@ -15,7 +15,7 @@
     }
     .stat-label {
       display: inline-block;
-      width: 100px;
+      width: 120px;
     }
     button {
       margin: 5px;
@@ -39,18 +39,20 @@
   <p>Current Location: <span id="location">Bunker</span></p>
 
   <div id="stats">
+    <div class="stat-bar"><span class="stat-label">Level:</span> <span id="level">1</span></div>
+    <div class="stat-bar"><span class="stat-label">XP:</span> <span id="xp">0</span> / <span id="nextXp">10</span></div>
     <div class="stat-bar"><span class="stat-label">Energy:</span> <span id="energy">100</span></div>
     <div class="stat-bar"><span class="stat-label">Health:</span> <span id="health">100</span></div>
-    <div class="stat-bar"><span class="stat-label">Skill XP:</span> <span id="xp">0</span></div>
     <div class="stat-bar"><span class="stat-label">Stamina:</span> <span id="stamina">100</span></div>
     <div class="stat-bar"><span class="stat-label">Oxygen:</span> <span id="oxygen">100</span></div>
     <div class="stat-bar"><span class="stat-label">Food:</span> <span id="food">100</span></div>
+    <div class="stat-bar"><span class="stat-label">Gum Nuts (GN):</span> <span id="gumNuts">0</span></div>
   </div>
 
   <h2>🧹 Jobs</h2>
   <button onclick="performJob(jobs.cleanFacilities, this)">Clean the Facilities</button>
   <button onclick="performJob(jobs.sortScrap, this)">Sort Scrap Metal</button>
-  <button onclick="performJob(jobs.incineratorDuty, this)">Incinerator Duty</button>
+  <button id="incineratorBtn" onclick="performJob(jobs.incineratorDuty, this)" disabled>Incinerator Duty (Unlocks at Lvl 2)</button>
 
   <h2>🧪 Actions</h2>
   <button onclick="toggleLocation()">Toggle Location</button>
