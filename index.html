@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Outbreak 2308</title>
   <style>
     body {
@@ -25,7 +25,11 @@
       border: 1px solid #444;
       cursor: pointer;
     }
-    button:hover {
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
       background-color: #333;
     }
   </style>
@@ -33,7 +37,7 @@
 <body>
   <h1>🛠️ Outbreak 2308</h1>
   <p>Current Location: <span id="location">Bunker</span></p>
-  
+
   <div id="stats">
     <div class="stat-bar"><span class="stat-label">Energy:</span> <span id="energy">100</span></div>
     <div class="stat-bar"><span class="stat-label">Health:</span> <span id="health">100</span></div>
@@ -44,78 +48,19 @@
   </div>
 
   <h2>🧹 Jobs</h2>
-  <button onclick="cleanFacilities()">Clean the Facilities</button>
+  <button onclick="performJob(jobs.cleanFacilities, this)">Clean the Facilities</button>
+  <button onclick="performJob(jobs.sortScrap, this)">Sort Scrap Metal</button>
+  <button onclick="performJob(jobs.incineratorDuty, this)">Incinerator Duty</button>
 
   <h2>🧪 Actions</h2>
   <button onclick="toggleLocation()">Toggle Location</button>
   <button onclick="train()">Train Skill</button>
   <button onclick="explore()">Explore Wasteland</button>
 
-  <script>
-    let stats = {
-      energy: 100,
-      health: 100,
-      xp: 0,
-      stamina: 100,
-      oxygen: 100,
-      food: 100
-    };
+  <h2>💾 Save / Load</h2>
+  <button onclick="saveGame()">Save Game</button>
+  <button onclick="loadGame()">Load Game</button>
 
-    let location = "Bunker";
-
-    function updateStats() {
-      for (const key in stats) {
-        document.getElementById(key).innerText = Math.round(stats[key] * 100) / 100;
-      }
-      document.getElementById("location").innerText = location;
-    }
-
-    function toggleLocation() {
-      location = location === "Bunker" ? "Wasteland" : "Bunker";
-      updateStats();
-    }
-
-    function train() {
-      if (stats.energy >= 10 && stats.food >= 5) {
-        stats.energy -= 10;
-        stats.food -= 5;
-        stats.xp += 5;
-        stats.stamina += 2;
-      } else {
-        alert("Not enough energy or food to train!");
-      }
-      updateStats();
-    }
-
-    function explore() {
-      if (location !== "Wasteland") {
-        alert("You need to be in the Wasteland to explore!");
-        return;
-      }
-      if (stats.oxygen >= 10 && stats.energy >= 15) {
-        stats.energy -= 15;
-        stats.oxygen -= 10;
-        stats.health -= Math.floor(Math.random() * 10);
-        stats.xp += 10;
-      } else {
-        alert("Not enough oxygen or energy!");
-      }
-      updateStats();
-    }
-
-    function cleanFacilities() {
-      if (stats.energy >= 3.5 && stats.food >= 0.45 && stats.stamina >= 3.5) {
-        stats.energy -= 3.5;
-        stats.food -= 0.45;
-        stats.stamina -= 3.5;
-        stats.xp += 4;
-      } else {
-        alert("Not enough resources to clean!");
-      }
-      updateStats();
-    }
-
-    updateStats();
-  </script>
+  <script src="index.js"></script>
 </body>
 </html>
