@@ -19,6 +19,14 @@
     }
     button {
       margin: 5px;
+      padding: 10px;
+      background-color: #2c2c2c;
+      color: white;
+      border: 1px solid #444;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #333;
     }
   </style>
 </head>
@@ -35,6 +43,10 @@
     <div class="stat-bar"><span class="stat-label">Food:</span> <span id="food">100</span></div>
   </div>
 
+  <h2>🧹 Jobs</h2>
+  <button onclick="cleanFacilities()">Clean the Facilities</button>
+
+  <h2>🧪 Actions</h2>
   <button onclick="toggleLocation()">Toggle Location</button>
   <button onclick="train()">Train Skill</button>
   <button onclick="explore()">Explore Wasteland</button>
@@ -48,11 +60,12 @@
       oxygen: 100,
       food: 100
     };
+
     let location = "Bunker";
 
     function updateStats() {
       for (const key in stats) {
-        document.getElementById(key).innerText = stats[key];
+        document.getElementById(key).innerText = Math.round(stats[key] * 100) / 100;
       }
       document.getElementById("location").innerText = location;
     }
@@ -86,6 +99,18 @@
         stats.xp += 10;
       } else {
         alert("Not enough oxygen or energy!");
+      }
+      updateStats();
+    }
+
+    function cleanFacilities() {
+      if (stats.energy >= 3.5 && stats.food >= 0.45 && stats.stamina >= 3.5) {
+        stats.energy -= 3.5;
+        stats.food -= 0.45;
+        stats.stamina -= 3.5;
+        stats.xp += 4;
+      } else {
+        alert("Not enough resources to clean!");
       }
       updateStats();
     }
