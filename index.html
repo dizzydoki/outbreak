@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Outbreak 2308</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #f0f0f0;
+      font-family: monospace;
+      padding: 20px;
+    }
+    .stat-bar {
+      margin: 10px 0;
+    }
+    .stat-label {
+      display: inline-block;
+      width: 100px;
+    }
+    button {
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛠️ Outbreak 2308</h1>
+  <p>Current Location: <span id="location">Bunker</span></p>
+  
+  <div id="stats">
+    <div class="stat-bar"><span class="stat-label">Energy:</span> <span id="energy">100</span></div>
+    <div class="stat-bar"><span class="stat-label">Health:</span> <span id="health">100</span></div>
+    <div class="stat-bar"><span class="stat-label">Skill XP:</span> <span id="xp">0</span></div>
+    <div class="stat-bar"><span class="stat-label">Stamina:</span> <span id="stamina">100</span></div>
+    <div class="stat-bar"><span class="stat-label">Oxygen:</span> <span id="oxygen">100</span></div>
+    <div class="stat-bar"><span class="stat-label">Food:</span> <span id="food">100</span></div>
+  </div>
+
+  <button onclick="toggleLocation()">Toggle Location</button>
+  <button onclick="train()">Train Skill</button>
+  <button onclick="explore()">Explore Wasteland</button>
+
+  <script>
+    let stats = {
+      energy: 100,
+      health: 100,
+      xp: 0,
+      stamina: 100,
+      oxygen: 100,
+      food: 100
+    };
+    let location = "Bunker";
+
+    function updateStats() {
+      for (const key in stats) {
+        document.getElementById(key).innerText = stats[key];
+      }
+      document.getElementById("location").innerText = location;
+    }
+
+    function toggleLocation() {
+      location = location === "Bunker" ? "Wasteland" : "Bunker";
+      updateStats();
+    }
+
+    function train() {
+      if (stats.energy >= 10 && stats.food >= 5) {
+        stats.energy -= 10;
+        stats.food -= 5;
+        stats.xp += 5;
+        stats.stamina += 2;
+      } else {
+        alert("Not enough energy or food to train!");
+      }
+      updateStats();
+    }
+
+    function explore() {
+      if (location !== "Wasteland") {
+        alert("You need to be in the Wasteland to explore!");
+        return;
+      }
+      if (stats.oxygen >= 10 && stats.energy >= 15) {
+        stats.energy -= 15;
+        stats.oxygen -= 10;
+        stats.health -= Math.floor(Math.random() * 10);
+        stats.xp += 10;
+      } else {
+        alert("Not enough oxygen or energy!");
+      }
+      updateStats();
+    }
+
+    updateStats();
+  </script>
+</body>
+</html>
